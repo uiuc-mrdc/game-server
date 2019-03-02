@@ -1,6 +1,6 @@
 # How To: MRDC Server 2019
 
-These instructions assume a starting directory of `~/dredd-2019`, where this file is located.
+These instructions assume your working directory is the root of this repo, where this file is located.
 
 ## How to install necessary software
 
