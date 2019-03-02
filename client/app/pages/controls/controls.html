@@ -1,0 +1,62 @@
+<navbar></navbar>
+
+<div class="container controls">
+  <div class="row">
+    <div class="col-xs-3 text-center">
+      <span class="time">
+        {{ gameCtrl.currentGameTime | gameTime: gameCtrl.game }}
+      </span>
+    </div>
+    <div class="col-xs-3" ng-hide="gameCtrl.game.clockRunning">
+      <button type="button" class="btn btn-lg btn-block btn-primary" ng-click="gameCtrl.submitPsuedoAction('start')">Start</button>
+    </div>
+    <div class="col-xs-3" ng-hide="gameCtrl.game.clockRunning">
+      <button type="button" class="btn btn-lg btn-block btn-warning" ng-click="gameCtrl.submitEdit({gameTimeAtEpoch: 0})">Reset</button>
+    </div>
+    <div class="col-xs-3" ng-show="gameCtrl.game.clockRunning">
+      <button type="button" class="btn btn-lg btn-block btn-danger" ng-click="gameCtrl.submitPsuedoAction('stop')">Stop</button>
+    </div>
+    <div class="col-xs-3"  ng-hide="gameCtrl.game.clockRunning">  
+      <button type="button" class="btn btn-lg btn-block btn-danger" ng-click="gameCtrl.submitPsuedoAction('complete')">Finalize</button>
+    </div>
+
+  </div>
+  
+  <div class="row">
+    
+    <div class="col-xs-3" ng-repeat="teamId in gameCtrl.game.teams track by $index" ng-init="$index">
+      <button type="button" class="btn btn-lg btn-block team-{{$index}}" ng-class="(teamId && gameCtrl.team == teamId) ? 'team-selected' : ''" ng-click="gameCtrl.setTeam(teamId)">
+        {{ teamId ? gameCtrl.teamsService.getTeamById(teamId).name : 'Empty' }}
+        ({{ gameCtrl.game.currentState.scores[$index] }})
+      </button>
+    </div>
+  </div>
+
+  <div class="row scoring-button-container">
+    <div class="col-xs-4" ng-repeat="action in gameCtrl.actionPrototypes" >
+      <button type="button" class="btn btn-lg btn-block btn-primary" ng-disabled="!gameCtrl.team" ng-click="gameCtrl.submitAction(action)">
+        {{ action.name }} <br/>
+        <span class="action-points">
+          {{ action | action:(gameCtrl.game.currentState):(gameCtrl.teamIdx) }}
+        </span>
+      </button>
+    </div>
+  </div>
+      
+  <div class="row">
+    <div class="col-xs-12">    
+      <h3>Events</h3>
+      Only show actions for the selected team: <input type="checkbox" ng-model="gameCtrl.teamActionsOnly">
+      <ul>
+        <li ng-repeat="action in gameCtrl.game.actions | filter:{team: (gameCtrl.teamActionsOnly ? gameCtrl.team : '')}" >
+          {{action | action}} ({{gameCtrl.teamsService.getTeamById(action.team).name}} @ {{action.gameTime | gameTime:gameCtrl.game}})
+          <button type="button" class="btn btn-danger" ng-click="gameCtrl.deleteAction(action._id)">
+            Remove Event
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer></footer>
