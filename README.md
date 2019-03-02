@@ -1,32 +1,30 @@
-# dredd
+# How To: MRDC Server 2019
 
-This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.3.0-beta.0.
+These instructions assume a starting directory of `~/dredd-2019`, where this file is located.
 
-## Getting Started
+## How to install necessary software
 
-### Prerequisites
+* Install Node.js with `sudo apt install nodejs`
+* Install Bower with `sudo npm install --global bower`
+* Install Ruby with `sudo apt install ruby-full`, then `sudo gem install sass`
+* Install Grunt with `sudo npm install --global grunt`
+* Install MongoDB with `sudo apt install mongodb`
+* Install server dependencies with `npm install`
+* Install frontend dependencies with `bower install`
 
-- [Git](https://git-scm.com/)
-- [Node.js and npm](nodejs.org) Node ^4.2.3, npm ^2.14.7
-- [Bower](bower.io) (`npm install --global bower`)
-- [Ruby](https://www.ruby-lang.org) and then `gem install sass`
-- [Grunt](http://gruntjs.com/) (`npm install --global grunt-cli`)
-- [MongoDB](https://www.mongodb.org/) - Keep a running daemon with `mongod`
+## How to start the server
 
-### Developing
+* Run `mongod` to start the database server.
+  * In order to keep using the terminal, you'll need to do one of the following:
+    * `Ctrl-Z` to pause mongod and `bg` to resume it in the background (`pkill mongod` to stop it later)
+    * `Ctrl-Shift-T` to open a new terminal tab, leaving mongod in the first tab (`Ctrl-C` in that tab to stop it later)
+* Run `grunt serve` to start the web server.
+  * A tab should open in your browser upon success.
+  * As with mongod above, if you want to free up your terminal, use `Ctrl-Z` & `bg` or `Ctrl-Shift-T`.
 
-1. Run `npm install` to install server dependencies.
+## How to modify the scoring table
 
-2. Run `bower install` to install front-end dependencies.
-
-3. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
-
-4. Run `grunt serve` to start the development server. It should automatically open the client in your browser when ready.
-
-## Build & development
-
-Run `grunt build` for building and `grunt serve` for preview.
-
-## Testing
-
-Running `npm test` will run the unit tests with karma.
+* Edit `./server/config/environment/shared.js`.
+  * NOTE: This is the folder `./server` in the root of `~/dredd-2019`, **not** `./dist/server`! 
+* The variable `prototypes` should be a JSON array of scoring options.
+  * The comment at the top of the file describes the meaning of each option.
