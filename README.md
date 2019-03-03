@@ -23,3 +23,10 @@ The Django server for the 2020 MRDC Game Server.
 * Installed apps are listed in `djangogame/settings.py`
 * Start the shell with `python3 manage.py shell`
 * Register models that need an admin interface in `djangogame/admin.py`
+
+## Miscellaneous
+
+* There is a `pylint` plugin for Django
+  * Run `pip3 install pylint` and `pip3 install pylint_django` to get both
+  * VS Code (and probably others) supports `pylint` automatically
+    * Add the args `['--load_plugins','pylint_django']` to your settings
