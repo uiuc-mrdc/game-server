@@ -18,4 +18,8 @@ The Django server for the 2020 MRDC Game Server.
 * Database models are located in `djangogame/models.py`. In order to change models:
   * Edit the model classes in `djangogame/models.py` (see `polls/models.py` for an example)
   * Run `python3 manage.py makemigrations` to create migrations for your changes
+  * `python3 manage.py sqlmigrate <app_name> <migration_number>` shows the SQL actions for a migration
   * Run `python3 manage.py migrate` to apply the created migrations to the database
+* Installed apps are listed in `djangogame/settings.py`
+* Start the shell with `python3 manage.py shell`
+* Register models that need an admin interface in `djangogame/admin.py`
